@@ -4,20 +4,27 @@ on:
     branches:
       - master
     paths:
-      - 'docs/**'  # Указываем путь к папке с Markdown файлами
+      - 'docs/**'
 
 jobs:
   convert:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3  # Клонируем репозиторий
-      - uses: baileyjm02/markdown-to-pdf@v1  # Используем Action для конвертации
+      - uses: actions/checkout@v3
+
+      - name: Combine Markdown files
+        run: |
+          mkdir -p combined
+          cat docs/*.md > combined/combined.md
+
+      - name: Convert combined Markdown to PDF
+        uses: baileyjm02/markdown-to-pdf@v1
         with:
-          input_dir: docs  # Папка с Markdown файлами
-          output_dir: pdfs  # Папка для сохранения PDF
-          images_dir: docs/images  # Папка с изображениями (если есть)
-          build_html: false  # Отключаем генерацию HTML
-      - uses: actions/upload-artifact@v4  # Загружаем результат как артефакт
+          input_dir: combined
+          output_dir: pdfs
+          build_html: false
+
+      - uses: actions/upload-artifact@v4
         with:
           name: pdf-document
           path: pdfs

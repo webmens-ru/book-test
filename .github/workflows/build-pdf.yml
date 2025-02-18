@@ -1,0 +1,23 @@
+name: Convert Markdown to PDF
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'  # Указываем путь к папке с Markdown файлами
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3  # Клонируем репозиторий
+      - uses: baileyjm02/markdown-to-pdf@v1  # Используем Action для конвертации
+        with:
+          input_dir: docs  # Папка с Markdown файлами
+          output_dir: pdfs  # Папка для сохранения PDF
+          images_dir: docs/images  # Папка с изображениями (если есть)
+          build_html: false  # Отключаем генерацию HTML
+      - uses: actions/upload-artifact@v3  # Загружаем результат как артефакт
+        with:
+          name: pdf-document
+          path: pdfs

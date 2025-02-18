@@ -2,7 +2,7 @@ name: Convert Markdown to PDF
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'docs/**'  # Указываем путь к папке с Markdown файлами
 

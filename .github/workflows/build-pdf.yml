@@ -17,7 +17,7 @@ jobs:
           output_dir: pdfs  # Папка для сохранения PDF
           images_dir: docs/images  # Папка с изображениями (если есть)
           build_html: false  # Отключаем генерацию HTML
-      - uses: actions/upload-artifact@v3  # Загружаем результат как артефакт
+      - uses: actions/upload-artifact@v4  # Загружаем результат как артефакт
         with:
           name: pdf-document
           path: pdfs
